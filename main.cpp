@@ -6,7 +6,7 @@
 // forward declaration
 void processInput(GLFWwindow* window);
 int init(GLFWwindow*& window);
-void createTriangle(GLuint &VAO, int &size);
+void createTriangle(GLuint& VAO, GLuint& EBO, int& size, int& numIndices);
 void createShaders();
 void createProgram(GLuint& programID, const char* vertex, const char* fragment);
 bool loadFile(const char* filename, char*& output);
@@ -21,14 +21,18 @@ int main() {
 		return result;
 	}
 
-	GLuint triangleVAO;
-	int triangleSize;
+	GLuint triangleVAO, triangleEBO;
+	int triangleSize, triangleIndexCount;
 	
-	createTriangle(triangleVAO, triangleSize);
+	createTriangle(triangleVAO, triangleEBO, triangleSize, triangleIndexCount);
 	createShaders();
 
 	// create viewport
-	glViewport(0, 0, 1280, 720);
+	//glViewport(0, 0, 1280, 720);
+	glUseProgram(simpleProgram);
+	glUniform2f(glGetUniformLocation(simpleProgram, "iResolution"), 1280.0f, 720.0f);
+	
+
 
 	// game render loop
 	while (!glfwWindowShouldClose(window)) {
@@ -38,10 +42,11 @@ int main() {
 		glClearColor(0.0, 0.5, 0.3, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(simpleProgram);
+		glUniform1f(glGetUniformLocation(simpleProgram, "iTime"), (float)glfwGetTime());
 
 		glBindVertexArray(triangleVAO);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, triangleSize);
+		//glDrawArrays(GL_TRIANGLE_STRIP, 0, triangleSize);
+		glDrawElements(GL_TRIANGLES, triangleIndexCount, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -85,13 +90,21 @@ int init(GLFWwindow*& window) {
 	return 0;
 }
 
-void createTriangle(GLuint& VAO, int& size) {
+void createTriangle(GLuint& VAO, GLuint& EBO, int& size, int& numIndices) {
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.5f,  0.5f, 0.0f,
-		-0.5f, 0.5f, 0.0f
+		// positions
+		-1.0f, -1.0f, 0.0f, //0
+		 1.0f, -1.0f, 0.0f, //1
+		-1.0f,  1.0f, 0.0f, //2
+		 1.0f,  1.0f, 0.0f, //3
 	};
+
+	int indices[] = {
+		0, 1, 2,
+		2, 1, 3
+	};
+
+	int stride = 3 * sizeof(float);
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -101,10 +114,15 @@ void createTriangle(GLuint& VAO, int& size) {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	size = sizeof(vertices);
+	size = sizeof(vertices) / stride;
+	numIndices = sizeof(indices) / sizeof(int);
 }
 
 void createShaders() {
@@ -112,6 +130,8 @@ void createShaders() {
 }
 
 void createProgram(GLuint& programID, const char* vertex, const char* fragment) {
+	
+	// load vertex and fragment shaders from files
 	char* vertexSrc;
 	char* fragmentSrc;
 
@@ -120,6 +140,7 @@ void createProgram(GLuint& programID, const char* vertex, const char* fragment) 
 
 	GLuint vertexShaderID, fragmentShaderID;
 
+	// initialize vertex shader
 	vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShaderID, 1, &vertexSrc, nullptr);
 	glCompileShader(vertexShaderID);
@@ -132,6 +153,7 @@ void createProgram(GLuint& programID, const char* vertex, const char* fragment) 
 		std::cerr << "error compiling vertex shader\n" << infoLog << std::endl;
 	}
 
+	// initialize fragment shader
 	fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShaderID, 1, &fragmentSrc, nullptr);
 	glCompileShader(fragmentShaderID);
@@ -142,6 +164,7 @@ void createProgram(GLuint& programID, const char* vertex, const char* fragment) 
 		std::cerr << "error compiling vertex shader\n" << infoLog << std::endl;
 	}
 
+	// initialize program
 	programID = glCreateProgram();
 	glAttachShader(programID, vertexShaderID);
 	glAttachShader(programID, fragmentShaderID);
@@ -152,6 +175,8 @@ void createProgram(GLuint& programID, const char* vertex, const char* fragment) 
 		glGetProgramInfoLog(programID, 512, nullptr, infoLog);
 		std::cerr << "error linking program\n" << infoLog << std::endl;
 	}
+
+	// clear shader data from memory
 	glDeleteShader(vertexShaderID);
 	glDeleteShader(fragmentShaderID);
 	delete vertexSrc;

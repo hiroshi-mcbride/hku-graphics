@@ -1,4 +1,4 @@
 ﻿  main.cpp
-C:\projects\hku-graphics\main.cpp(38,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-C:\projects\hku-graphics\main.cpp(170,13): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\projects\hku-graphics\main.cpp(42,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\projects\hku-graphics\main.cpp(195,13): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
   hku-graphics.vcxproj -> C:\projects\hku-graphics\x64\Debug\hku-graphics.exe

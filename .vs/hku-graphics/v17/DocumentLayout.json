@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{4B8D0DA4-F770-4987-8615-95CF22666CFF}|hku-graphics.vcxproj|C:\\projects\\hku-graphics\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4B8D0DA4-F770-4987-8615-95CF22666CFF}|hku-graphics.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8D0DA4-F770-4987-8615-95CF22666CFF}|hku-graphics.vcxproj|C:\\projects\\hku-graphics\\shaders\\sampleFragment.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{4B8D0DA4-F770-4987-8615-95CF22666CFF}|hku-graphics.vcxproj|solutionrelative:shaders\\sampleFragment.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8D0DA4-F770-4987-8615-95CF22666CFF}|hku-graphics.vcxproj|C:\\projects\\hku-graphics\\shaders\\sampleVertex.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{4B8D0DA4-F770-4987-8615-95CF22666CFF}|hku-graphics.vcxproj|solutionrelative:shaders\\sampleVertex.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,9 +32,36 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\projects\\hku-graphics\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AQIAABgAAAAAAAAAAAAAACsAAAAzAAAA",
+              "ViewState": "AQIAALcAAAAAAAAAAAAAAMoAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-17T08:04:51.066Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "sampleVertex.shader",
+              "DocumentMoniker": "C:\\projects\\hku-graphics\\shaders\\sampleVertex.shader",
+              "RelativeDocumentMoniker": "shaders\\sampleVertex.shader",
+              "ToolTip": "C:\\projects\\hku-graphics\\shaders\\sampleVertex.shader",
+              "RelativeToolTip": "shaders\\sampleVertex.shader",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
+              "WhenOpened": "2024-04-23T12:06:28.837Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "sampleFragment.shader",
+              "DocumentMoniker": "C:\\projects\\hku-graphics\\shaders\\sampleFragment.shader",
+              "RelativeDocumentMoniker": "shaders\\sampleFragment.shader",
+              "ToolTip": "C:\\projects\\hku-graphics\\shaders\\sampleFragment.shader",
+              "RelativeToolTip": "shaders\\sampleFragment.shader",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAYAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
+              "WhenOpened": "2024-04-23T12:06:25.358Z",
               "EditorCaption": ""
             }
           ]
